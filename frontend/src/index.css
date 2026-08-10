@@ -4,14 +4,23 @@
   --color-border: #cdbb95;
   --color-text: #302100;
   --color-text-muted: #6e6a31;
+  --color-accent-soft: #f0e6d0;
+
+  /* Palette-mapped button colors: each action gets its own hue */
   --color-primary: #99782d;
   --color-primary-hover: #7c611f;
-  --color-accent-soft: #f0e6d0;
-  --color-danger-text: #302100;
-  --color-danger-bg: #ecdfc9;
-  --color-danger-border: #b89f72;
-  --color-danger: #6e4b1f;
-  --color-danger-hover: #543a17;
+  --color-add: #424b30;
+  --color-add-hover: #384029;
+  --color-bulk: #6e6a31;
+  --color-bulk-hover: #5d5a2a;
+  --color-import: #e7d6b3;
+  --color-import-hover: #ddc89e;
+  --color-danger: #302100;
+  --color-danger-hover: #4f4226;
+
+  --color-error-text: #302100;
+  --color-error-bg: #ecdfc9;
+  --color-error-border: #b89f72;
 }
 
 * {
@@ -93,12 +102,13 @@ body {
   cursor: default;
 }
 
+.btn-add,
+.btn-bulk,
+.btn-import,
 .danger-button {
   appearance: none;
   border: none;
   border-radius: 8px;
-  background: var(--color-danger);
-  color: white;
   font-size: 14px;
   font-weight: 500;
   padding: 9px 16px;
@@ -106,10 +116,46 @@ body {
   transition: background-color 0.15s ease;
 }
 
+.btn-add {
+  background: var(--color-add);
+  color: white;
+}
+
+.btn-add:hover:not(:disabled) {
+  background: var(--color-add-hover);
+}
+
+.btn-bulk {
+  background: var(--color-bulk);
+  color: white;
+}
+
+.btn-bulk:hover:not(:disabled) {
+  background: var(--color-bulk-hover);
+}
+
+.btn-import {
+  background: var(--color-import);
+  color: var(--color-text);
+  border: 1px solid var(--color-error-border);
+}
+
+.btn-import:hover:not(:disabled) {
+  background: var(--color-import-hover);
+}
+
+.danger-button {
+  background: var(--color-danger);
+  color: white;
+}
+
 .danger-button:hover:not(:disabled) {
   background: var(--color-danger-hover);
 }
 
+.btn-add:disabled,
+.btn-bulk:disabled,
+.btn-import:disabled,
 .danger-button:disabled {
   opacity: 0.5;
   cursor: default;
@@ -135,9 +181,9 @@ body {
   margin: 12px 0 0;
   padding: 10px 14px;
   border-radius: 8px;
-  background: var(--color-danger-bg);
-  border: 1px solid var(--color-danger-border);
-  color: var(--color-danger-text);
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error-border);
+  color: var(--color-error-text);
   font-size: 14px;
 }
 
@@ -201,7 +247,7 @@ body {
 }
 
 .icon-button.danger:hover {
-  background: var(--color-danger-bg);
+  background: var(--color-error-bg);
 }
 
 /* Modal */

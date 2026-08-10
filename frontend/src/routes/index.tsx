@@ -34,11 +34,20 @@ interface UserFormModalProps {
   initial: UserInput;
   busy: boolean;
   error: string | null;
+  submitClassName: string;
   onCancel: () => void;
   onSubmit: (input: UserInput) => void;
 }
 
-function UserFormModal({ title, initial, busy, error, onCancel, onSubmit }: UserFormModalProps) {
+function UserFormModal({
+  title,
+  initial,
+  busy,
+  error,
+  submitClassName,
+  onCancel,
+  onSubmit,
+}: UserFormModalProps) {
   const [name, setName] = useState(initial.name);
   const [email, setEmail] = useState(initial.email);
 
@@ -63,7 +72,7 @@ function UserFormModal({ title, initial, busy, error, onCancel, onSubmit }: User
           <button type="button" className="secondary-button" onClick={onCancel} disabled={busy}>
             Cancel
           </button>
-          <button type="submit" className="fetch-button" disabled={busy}>
+          <button type="submit" className={submitClassName} disabled={busy}>
             {busy ? "Saving..." : "Save"}
           </button>
         </div>
@@ -139,7 +148,7 @@ function BulkAddModal({ busy, error, onCancel, onSubmit }: BulkAddModalProps) {
           <button type="button" className="secondary-button" onClick={onCancel} disabled={busy}>
             Cancel
           </button>
-          <button type="submit" className="fetch-button" disabled={busy}>
+          <button type="submit" className="btn-bulk" disabled={busy}>
             {busy ? "Adding..." : "Add Users"}
           </button>
         </div>
@@ -179,7 +188,7 @@ function ImportModal({ busy, error, onCancel, onSubmit }: ImportModalProps) {
           <button type="button" className="secondary-button" onClick={onCancel} disabled={busy}>
             Cancel
           </button>
-          <button type="submit" className="fetch-button" disabled={busy || !file}>
+          <button type="submit" className="btn-import" disabled={busy || !file}>
             {busy ? "Importing..." : "Import"}
           </button>
         </div>
@@ -259,13 +268,13 @@ export function IndexPage() {
           <button className="fetch-button" onClick={handleFetchClick} disabled={isLoading}>
             {isLoading ? "Fetching..." : "Fetch Users"}
           </button>
-          <button className="secondary-button" onClick={() => openModal({ type: "add" })}>
+          <button className="btn-add" onClick={() => openModal({ type: "add" })}>
             Add
           </button>
-          <button className="secondary-button" onClick={() => openModal({ type: "bulkAdd" })}>
+          <button className="btn-bulk" onClick={() => openModal({ type: "bulkAdd" })}>
             Bulk Add
           </button>
-          <button className="secondary-button" onClick={() => openModal({ type: "import" })}>
+          <button className="btn-import" onClick={() => openModal({ type: "import" })}>
             Import
           </button>
           <button className="secondary-button" onClick={() => (window.location.href = getExportUrl())}>
@@ -354,6 +363,7 @@ export function IndexPage() {
           initial={{ name: "", email: "" }}
           busy={busy}
           error={actionError}
+          submitClassName="btn-add"
           onCancel={() => setModal(null)}
           onSubmit={(input) =>
             runAction("Creating user...", async () => {
@@ -369,6 +379,7 @@ export function IndexPage() {
           initial={{ name: modal.user.name, email: modal.user.email }}
           busy={busy}
           error={actionError}
+          submitClassName="fetch-button"
           onCancel={() => setModal(null)}
           onSubmit={(input) =>
             runAction("Saving changes...", async () => {
